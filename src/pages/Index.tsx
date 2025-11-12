@@ -18,39 +18,39 @@ const Index = () => {
     {
       title: 'Образование и наука',
       icon: 'GraduationCap',
-      color: 'from-blue-500 to-indigo-600',
+      color: 'from-[#374357] to-[#4a5875]',
       items: ['Конференции', 'НОЦ СМТ', 'РПА']
     },
     {
       title: 'Реабилитация',
       subtitle: 'Поддержка и интеграция людей с психическими особенностями',
       icon: 'Heart',
-      color: 'from-pink-500 to-rose-600',
+      color: 'from-[#E55B5B] to-[#d94545]',
       items: ['Интернет магазин другие', 'Фестиваль другие', 'Навигатор помощи', 'Совет НКО', 'Малая полиграфия']
     },
     {
       title: 'Профилактика и просвещение',
       subtitle: 'Медиа проекты',
       icon: 'Lightbulb',
-      color: 'from-amber-500 to-orange-600',
+      color: 'from-[#374357] to-[#4a5875]',
       items: ['вМесте', 'Я/Мы психиатр', 'Психология - новая религия', 'Doky-Mental']
     },
     {
       title: 'Проверенные специалисты',
       icon: 'UserCheck',
-      color: 'from-emerald-500 to-teal-600',
+      color: 'from-[#E55B5B] to-[#d94545]',
       items: []
     },
     {
       title: 'Как нас поддержать',
       icon: 'HandHeart',
-      color: 'from-purple-500 to-violet-600',
+      color: 'from-[#374357] to-[#4a5875]',
       items: ['Донаты', 'Магазин Другие', 'Малая полиграфия']
     },
     {
       title: 'Волонтерство и развитие сообщества',
       icon: 'Users',
-      color: 'from-cyan-500 to-blue-600',
+      color: 'from-[#E55B5B] to-[#d94545]',
       items: [
         'Волонтерство в психиатрии',
         'Социальное проектирование',
