@@ -1,12 +1,284 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import Icon from '@/components/ui/icon';
+import { Button } from '@/components/ui/button';
 
 const Index = () => {
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+
+  const menuItems = [
+    {
+      title: 'Образование и наука',
+      items: ['Конференции', 'НОЦ СМТ', 'РПА']
+    },
+    {
+      title: 'Реабилитация',
+      subtitle: 'Поддержка и интеграция людей с психическими особенностями',
+      items: ['Интернет магазин другие', 'Фестиваль другие', 'Навигатор помощи', 'Совет НКО', 'Малая полиграфия']
+    },
+    {
+      title: 'Профилактика и просвещение',
+      subtitle: 'Медиа проекты',
+      items: ['вМесте', 'Я/Мы психиатр', 'Психология - новая религия', 'Doky-Mental']
+    },
+    {
+      title: 'Проверенные специалисты',
+      items: []
+    },
+    {
+      title: 'Как нас поддержать',
+      items: ['Донаты', 'Магазин Другие', 'Малая полиграфия']
+    },
+    {
+      title: 'Волонтерство и развитие сообщества',
+      items: [
+        'Волонтерство в психиатрии',
+        'Социальное проектирование',
+        'Конкурс студенческих социальных проектов «Октябрь - месяц охраны психического здоровья»'
+      ]
+    }
+  ];
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <header className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between py-4 border-b border-border">
+            <div className="flex items-center gap-8">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+                  <Icon name="Heart" className="text-white" size={24} />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold text-foreground">Союз охраны</h1>
+                  <p className="text-sm text-muted-foreground">психического здоровья</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-6">
+              <div className="flex flex-col gap-1 text-sm">
+                <a href="tel:+74951234567" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+                  <Icon name="Phone" size={16} />
+                  <span>+7 (495) 123-45-67</span>
+                </a>
+                <a href="mailto:info@mental-health.ru" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+                  <Icon name="Mail" size={16} />
+                  <span>info@mental-health.ru</span>
+                </a>
+              </div>
+              
+              <div className="flex items-center gap-3">
+                <a 
+                  href="https://t.me/mental_health_russia" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+                >
+                  <Icon name="Send" size={18} />
+                </a>
+                <a 
+                  href="https://rutube.ru/mental_health" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+                >
+                  <Icon name="Video" size={18} />
+                </a>
+                <a 
+                  href="https://vk.com/mental_health_russia" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+                >
+                  <Icon name="Users" size={18} />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <nav className="py-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1">
+                {menuItems.map((item, index) => (
+                  <div 
+                    key={index}
+                    className="relative"
+                    onMouseEnter={() => item.items.length > 0 && setActiveDropdown(item.title)}
+                    onMouseLeave={() => setActiveDropdown(null)}
+                  >
+                    <Button
+                      variant="ghost"
+                      className="text-sm font-medium text-foreground hover:text-primary hover:bg-transparent px-4"
+                    >
+                      {item.title}
+                      {item.items.length > 0 && (
+                        <Icon 
+                          name="ChevronDown" 
+                          size={16} 
+                          className={`ml-1 transition-transform ${activeDropdown === item.title ? 'rotate-180' : ''}`}
+                        />
+                      )}
+                    </Button>
+                    
+                    {item.items.length > 0 && activeDropdown === item.title && (
+                      <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg border border-border min-w-[280px] py-2 animate-in fade-in slide-in-from-top-2">
+                        {item.subtitle && (
+                          <div className="px-4 py-2 text-xs text-muted-foreground border-b border-border">
+                            {item.subtitle}
+                          </div>
+                        )}
+                        {item.items.map((subItem, subIndex) => (
+                          <a
+                            key={subIndex}
+                            href="#"
+                            className="block px-4 py-2.5 text-sm text-foreground hover:bg-muted hover:text-primary transition-colors"
+                          >
+                            {subItem}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+              
+              <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary">
+                Экспертам
+              </Button>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <section className="py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-5xl font-bold text-foreground mb-6">
+                Союз охраны психического здоровья России
+              </h2>
+              <p className="text-xl text-muted-foreground mb-8">
+                Мы объединяем специалистов, организации и людей для развития системы охраны психического здоровья в России
+              </p>
+              <div className="flex items-center justify-center gap-4">
+                <Button size="lg" className="bg-primary hover:bg-primary/90">
+                  <Icon name="Heart" size={20} className="mr-2" />
+                  Поддержать нас
+                </Button>
+                <Button size="lg" variant="outline">
+                  Узнать больше
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-white p-8 rounded-2xl shadow-sm border border-border hover:shadow-md transition-shadow">
+                <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                  <Icon name="GraduationCap" size={28} className="text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Образование</h3>
+                <p className="text-muted-foreground">
+                  Конференции, научные центры и образовательные программы для специалистов
+                </p>
+              </div>
+
+              <div className="bg-white p-8 rounded-2xl shadow-sm border border-border hover:shadow-md transition-shadow">
+                <div className="w-14 h-14 bg-secondary/10 rounded-full flex items-center justify-center mb-4">
+                  <Icon name="Users" size={28} className="text-secondary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Реабилитация</h3>
+                <p className="text-muted-foreground">
+                  Поддержка и интеграция людей с психическими особенностями в общество
+                </p>
+              </div>
+
+              <div className="bg-white p-8 rounded-2xl shadow-sm border border-border hover:shadow-md transition-shadow">
+                <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                  <Icon name="Lightbulb" size={28} className="text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Просвещение</h3>
+                <p className="text-muted-foreground">
+                  Медиа проекты и образовательные материалы о психическом здоровье
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-3xl font-bold mb-6">Наша миссия</h2>
+              <p className="text-lg text-muted-foreground mb-8">
+                Мы работаем над созданием комплексной системы охраны психического здоровья, объединяя усилия специалистов, 
+                организаций и общества для повышения качества жизни людей с психическими особенностями
+              </p>
+              <div className="grid grid-cols-3 gap-8 mt-12">
+                <div>
+                  <div className="text-4xl font-bold text-primary mb-2">500+</div>
+                  <div className="text-sm text-muted-foreground">Специалистов</div>
+                </div>
+                <div>
+                  <div className="text-4xl font-bold text-primary mb-2">50+</div>
+                  <div className="text-sm text-muted-foreground">Организаций</div>
+                </div>
+                <div>
+                  <div className="text-4xl font-bold text-primary mb-2">10K+</div>
+                  <div className="text-sm text-muted-foreground">Помогли людям</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="bg-foreground text-white py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h4 className="font-semibold mb-4">О нас</h4>
+              <p className="text-sm text-white/70">
+                Союз охраны психического здоровья России
+              </p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Контакты</h4>
+              <div className="space-y-2 text-sm text-white/70">
+                <p>+7 (495) 123-45-67</p>
+                <p>info@mental-health.ru</p>
+              </div>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Социальные сети</h4>
+              <div className="flex gap-3">
+                <a href="#" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <Icon name="Send" size={18} />
+                </a>
+                <a href="#" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <Icon name="Video" size={18} />
+                </a>
+                <a href="#" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <Icon name="Users" size={18} />
+                </a>
+              </div>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Документы</h4>
+              <div className="space-y-2 text-sm text-white/70">
+                <a href="#" className="block hover:text-white transition-colors">Устав</a>
+                <a href="#" className="block hover:text-white transition-colors">Отчеты</a>
+              </div>
+            </div>
+          </div>
+          <div className="mt-8 pt-8 border-t border-white/10 text-center text-sm text-white/60">
+            © 2024 Союз охраны психического здоровья России. Все права защищены.
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
