@@ -4,32 +4,53 @@ import { Button } from '@/components/ui/button';
 
 const Index = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [activeMainDropdown, setActiveMainDropdown] = useState<string | null>(null);
 
-  const menuItems = [
+  const topMenuItems = [
+    { title: 'О нас', href: '#' },
+    { title: 'Новости', href: '#' },
+    { title: 'Мероприятия', href: '#' },
+    { title: 'Проекты', href: '#' },
+    { title: 'Контакты', href: '#' }
+  ];
+
+  const mainMenuItems = [
     {
       title: 'Образование и наука',
+      icon: 'GraduationCap',
+      color: 'from-blue-500 to-indigo-600',
       items: ['Конференции', 'НОЦ СМТ', 'РПА']
     },
     {
       title: 'Реабилитация',
       subtitle: 'Поддержка и интеграция людей с психическими особенностями',
+      icon: 'Heart',
+      color: 'from-pink-500 to-rose-600',
       items: ['Интернет магазин другие', 'Фестиваль другие', 'Навигатор помощи', 'Совет НКО', 'Малая полиграфия']
     },
     {
       title: 'Профилактика и просвещение',
       subtitle: 'Медиа проекты',
+      icon: 'Lightbulb',
+      color: 'from-amber-500 to-orange-600',
       items: ['вМесте', 'Я/Мы психиатр', 'Психология - новая религия', 'Doky-Mental']
     },
     {
       title: 'Проверенные специалисты',
+      icon: 'UserCheck',
+      color: 'from-emerald-500 to-teal-600',
       items: []
     },
     {
       title: 'Как нас поддержать',
+      icon: 'HandHeart',
+      color: 'from-purple-500 to-violet-600',
       items: ['Донаты', 'Магазин Другие', 'Малая полиграфия']
     },
     {
       title: 'Волонтерство и развитие сообщества',
+      icon: 'Users',
+      color: 'from-cyan-500 to-blue-600',
       items: [
         'Волонтерство в психиатрии',
         'Социальное проектирование',
@@ -43,15 +64,13 @@ const Index = () => {
       <header className="bg-white shadow-sm sticky top-0 z-50">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-4 border-b border-border">
-            <div className="flex items-center gap-8">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-                  <Icon name="Heart" className="text-white" size={24} />
-                </div>
-                <div>
-                  <h1 className="text-xl font-bold text-foreground">Союз охраны</h1>
-                  <p className="text-sm text-muted-foreground">психического здоровья</p>
-                </div>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+                <Icon name="Heart" className="text-white" size={24} />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-foreground">Союз охраны</h1>
+                <p className="text-sm text-muted-foreground">психического здоровья</p>
               </div>
             </div>
             
@@ -96,62 +115,79 @@ const Index = () => {
             </div>
           </div>
 
-          <nav className="py-3">
+          <nav className="py-3 border-b border-border">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1">
-                {menuItems.map((item, index) => (
-                  <div 
+              <div className="flex items-center gap-6">
+                {topMenuItems.map((item, index) => (
+                  <a
                     key={index}
-                    className="relative"
-                    onMouseEnter={() => item.items.length > 0 && setActiveDropdown(item.title)}
-                    onMouseLeave={() => setActiveDropdown(null)}
+                    href={item.href}
+                    className="text-sm font-medium text-foreground hover:text-primary transition-colors"
                   >
-                    <Button
-                      variant="ghost"
-                      className="text-sm font-medium text-foreground hover:text-primary hover:bg-transparent px-4"
-                    >
-                      {item.title}
-                      {item.items.length > 0 && (
-                        <Icon 
-                          name="ChevronDown" 
-                          size={16} 
-                          className={`ml-1 transition-transform ${activeDropdown === item.title ? 'rotate-180' : ''}`}
-                        />
-                      )}
-                    </Button>
-                    
-                    {item.items.length > 0 && activeDropdown === item.title && (
-                      <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg border border-border min-w-[280px] py-2 animate-in fade-in slide-in-from-top-2">
-                        {item.subtitle && (
-                          <div className="px-4 py-2 text-xs text-muted-foreground border-b border-border">
-                            {item.subtitle}
-                          </div>
-                        )}
-                        {item.items.map((subItem, subIndex) => (
-                          <a
-                            key={subIndex}
-                            href="#"
-                            className="block px-4 py-2.5 text-sm text-foreground hover:bg-muted hover:text-primary transition-colors"
-                          >
-                            {subItem}
-                          </a>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                    {item.title}
+                  </a>
                 ))}
               </div>
               
-              <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary">
+              <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
                 Экспертам
-              </Button>
+              </a>
             </div>
           </nav>
         </div>
       </header>
 
+      <section className="bg-gradient-to-br from-primary/5 to-secondary/5 py-12 border-b border-border">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {mainMenuItems.map((item, index) => (
+              <div 
+                key={index}
+                className="relative group"
+                onMouseEnter={() => item.items.length > 0 && setActiveMainDropdown(item.title)}
+                onMouseLeave={() => setActiveMainDropdown(null)}
+              >
+                <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden h-full cursor-pointer border-2 border-transparent hover:border-primary/20">
+                  <div className={`bg-gradient-to-br ${item.color} p-6 text-white`}>
+                    <div className="flex items-start justify-between mb-3">
+                      <Icon name={item.icon} size={36} className="opacity-90" />
+                      {item.items.length > 0 && (
+                        <Icon 
+                          name="ChevronDown" 
+                          size={20} 
+                          className={`transition-transform ${activeMainDropdown === item.title ? 'rotate-180' : ''}`}
+                        />
+                      )}
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                    {item.subtitle && (
+                      <p className="text-sm opacity-90">{item.subtitle}</p>
+                    )}
+                  </div>
+                  
+                  {item.items.length > 0 && activeMainDropdown === item.title && (
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-white shadow-2xl rounded-xl border border-border py-3 z-50 animate-in fade-in slide-in-from-top-2">
+                      {item.items.map((subItem, subIndex) => (
+                        <a
+                          key={subIndex}
+                          href="#"
+                          className="block px-5 py-3 text-sm text-foreground hover:bg-gradient-to-r hover:from-primary/10 hover:to-transparent hover:text-primary transition-all font-medium"
+                        >
+                          <Icon name="ArrowRight" size={14} className="inline mr-2 opacity-50" />
+                          {subItem}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <main>
-        <section className="py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
+        <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-5xl font-bold text-foreground mb-6">
@@ -168,42 +204,6 @@ const Index = () => {
                 <Button size="lg" variant="outline">
                   Узнать больше
                 </Button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-border hover:shadow-md transition-shadow">
-                <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                  <Icon name="GraduationCap" size={28} className="text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Образование</h3>
-                <p className="text-muted-foreground">
-                  Конференции, научные центры и образовательные программы для специалистов
-                </p>
-              </div>
-
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-border hover:shadow-md transition-shadow">
-                <div className="w-14 h-14 bg-secondary/10 rounded-full flex items-center justify-center mb-4">
-                  <Icon name="Users" size={28} className="text-secondary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Реабилитация</h3>
-                <p className="text-muted-foreground">
-                  Поддержка и интеграция людей с психическими особенностями в общество
-                </p>
-              </div>
-
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-border hover:shadow-md transition-shadow">
-                <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                  <Icon name="Lightbulb" size={28} className="text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Просвещение</h3>
-                <p className="text-muted-foreground">
-                  Медиа проекты и образовательные материалы о психическом здоровье
-                </p>
               </div>
             </div>
           </div>
