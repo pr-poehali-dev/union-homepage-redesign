@@ -137,49 +137,42 @@ const Index = () => {
         </div>
       </header>
 
-      <section className="bg-gradient-to-br from-primary/5 to-secondary/5 py-12 border-b border-border">
+      <section className="bg-white py-8 border-b border-border">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex flex-wrap items-center gap-8">
             {mainMenuItems.map((item, index) => (
               <div 
                 key={index}
-                className="relative group"
+                className="relative"
                 onMouseEnter={() => item.items.length > 0 && setActiveMainDropdown(item.title)}
                 onMouseLeave={() => setActiveMainDropdown(null)}
               >
-                <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden h-full cursor-pointer border-2 border-transparent hover:border-primary/20">
-                  <div className={`bg-gradient-to-br ${item.color} p-6 text-white`}>
-                    <div className="flex items-start justify-between mb-3">
-                      <Icon name={item.icon} size={36} className="opacity-90" />
-                      {item.items.length > 0 && (
-                        <Icon 
-                          name="ChevronDown" 
-                          size={20} 
-                          className={`transition-transform ${activeMainDropdown === item.title ? 'rotate-180' : ''}`}
-                        />
-                      )}
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                    {item.subtitle && (
-                      <p className="text-sm opacity-90">{item.subtitle}</p>
-                    )}
-                  </div>
-                  
-                  {item.items.length > 0 && activeMainDropdown === item.title && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-white shadow-2xl rounded-xl border border-border py-3 z-50 animate-in fade-in slide-in-from-top-2">
-                      {item.items.map((subItem, subIndex) => (
-                        <a
-                          key={subIndex}
-                          href="#"
-                          className="block px-5 py-3 text-sm text-foreground hover:bg-gradient-to-r hover:from-primary/10 hover:to-transparent hover:text-primary transition-all font-medium"
-                        >
-                          <Icon name="ArrowRight" size={14} className="inline mr-2 opacity-50" />
-                          {subItem}
-                        </a>
-                      ))}
-                    </div>
+                <div className="flex items-center gap-2 cursor-pointer py-2">
+                  <h3 className="text-base font-semibold text-foreground hover:text-primary transition-colors">
+                    {item.title}
+                  </h3>
+                  {item.items.length > 0 && (
+                    <Icon 
+                      name="ChevronDown" 
+                      size={16} 
+                      className={`text-muted-foreground transition-transform ${activeMainDropdown === item.title ? 'rotate-180' : ''}`}
+                    />
                   )}
                 </div>
+                
+                {item.items.length > 0 && activeMainDropdown === item.title && (
+                  <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg border border-border py-2 z-50 min-w-[250px] animate-in fade-in slide-in-from-top-2">
+                    {item.items.map((subItem, subIndex) => (
+                      <a
+                        key={subIndex}
+                        href="#"
+                        className="block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-primary transition-all"
+                      >
+                        {subItem}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>
