@@ -139,16 +139,16 @@ const Index = () => {
 
       <section className="bg-white py-8 border-b border-border">
         <div className="container mx-auto px-4">
-          <div className="flex items-center gap-6 overflow-x-auto">
+          <div className="flex items-start justify-between gap-4">
             {mainMenuItems.map((item, index) => (
               <div 
                 key={index}
-                className="relative"
+                className="relative flex-1"
                 onMouseEnter={() => item.items.length > 0 && setActiveMainDropdown(item.title)}
                 onMouseLeave={() => setActiveMainDropdown(null)}
               >
-                <div className="flex items-center gap-2 cursor-pointer py-2 whitespace-nowrap">
-                  <h3 className="text-sm font-semibold text-foreground hover:text-primary transition-colors">
+                <div className="flex items-start gap-2 cursor-pointer py-2">
+                  <h3 className="text-sm font-semibold text-foreground hover:text-primary transition-colors leading-tight">
                     {item.title}
                   </h3>
                   {item.items.length > 0 && (
